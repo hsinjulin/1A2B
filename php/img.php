@@ -13,11 +13,14 @@
         $randomNumbers = $_SESSION['randomNumbers'];
     }
     // 根據隨機數字顯示相應的圖片
-    $imageFileNames = array();
+    /*$imageFileNames = array();
     foreach ($randomNumbers as $number) {
         $imageFileNames[] = "../images/$number.png";
         //echo "<img src='$imageFileName' alt='$number'/>";
-    }       
+    }*/
+    $imageFileNames = array_map(function ($number){
+        return "../images/$number.png";
+    }, $randomNumbers);       
        
 ?>
 <!DOCTYPE html>
