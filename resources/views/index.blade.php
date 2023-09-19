@@ -44,9 +44,19 @@
                 <input type="submit" name="submit" id="submit" value="猜猜看">
             </p>
         </form>
-        <p>
+        <!-- <p>
             <iframe src="{{route('show')}}" frameborder="1" class="iframe-style"></iframe>
-        </p>
+        </p> -->
+        <div class="results">
+            <h2>猜測結果：</h2>
+                @if(session()->has('results'))
+                    @foreach(session('results') as $result)
+                        {{ $result }}<br>
+                    @endforeach
+                @else
+                    尚無結果<br>
+                @endif
+        </div>
         <p class="sql">
             <a href="{{route('insert')}}">寫回資料庫&nbsp</a>
             <a href="{{route('clear')}}">重設</a>
@@ -54,8 +64,10 @@
     </div>
     <div class="im">
         @foreach(session('randomNumbers', []) as $num)
-        <!-- 使用asset()生成基于Laravel中的公共目錄結構的圖像文件的正确URL-->
+        <!-- 使用asset()生成基于Laravel中的公共目錄結構的圖像文件的正确URL
             <img src="{{asset('../public/images/'.$num.'.png')}}">
+            會自己找到照片位子 -->
+            <img src="{{asset('images/'.$num.'.png')}}">
         @endforeach
     </div>
 </body>
