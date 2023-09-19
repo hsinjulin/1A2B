@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\guessHistory;
 use Illuminate\Http\Request;
-session_start();
+//session_start();
 class BooksController extends Controller
 {
     //index
@@ -20,8 +20,8 @@ class BooksController extends Controller
             session(['guess'=>$guess]);
             $randomNumbers = session('randomNumbers',[]);
             
-            $_SESSION["player"] = $request->input("player");
-            $_SESSION["guess"] = $request->input("guess");
+            //$_SESSION["player"] = $request->input("player");
+            //$_SESSION["guess"] = $request->input("guess");
         
             $guessString = str_split($guess);
             $A = 0;
@@ -77,7 +77,8 @@ class BooksController extends Controller
     public function show(){
         if(session()->has('results')){
             $results = session('results');
-            echo $results; 
+            //echo $results;
+            return respones()->json($results);
         }       
     }
 
@@ -90,7 +91,7 @@ class BooksController extends Controller
         return view('index');
     }
 
-    public function claer(){
+    public function clear(){
         //清空session內所有資料
         session()->flush();
         //重新導回一開始的樣子
