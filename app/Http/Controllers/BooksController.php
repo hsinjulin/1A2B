@@ -41,18 +41,11 @@ class BooksController extends Controller
             //計算有幾個B(已排除計算過的A)
             $B = 0;
             for($i=0; $i<10; $i++) { 
-                if($guess_appear_times[$i] >= $ans_appear_times[$i]) {
-                    $B += $ans_appear_times[$i];
-                }
-                else {
-                    $B += $guess_appear_times[$i];
-                }
+                $B +=  min($guess_appear_times[$i], $ans_appear_times[$i]);
             }
-            $results = session('results', []);
-            $result = $guess . ">>" . $A ."A" . $B . "B";  
-            $results[] = $result;
-            session(['results' =>$results]);    
-            session(['result' =>$result]);
+            $results = isset($_SESSION['results']) ? $_SESSION['results'] : array();
+            $results[] = "$guess >> {$A}A{$B}B";  
+            $_SESSION['results'] = $results;
         }
         return view('index', ['results' => session('results', [])]);
     }
